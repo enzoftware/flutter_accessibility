@@ -14,21 +14,12 @@ class ExpenseItem extends StatelessWidget {
 
     return Semantics(
       label: 'Expense $expenseTypeValue of $expenseAmount on $expenseDate',
-      child: ListTile(
-        leading: ExcludeSemantics(
-          child: ExpenseIndicator(expenseType: expense.type),
-        ),
-        title: ExcludeSemantics(
-          child: Text(
-            expense.description,
-            textScaleFactor: 1.5,
-          ),
-        ),
-        subtitle: ExcludeSemantics(
-          child: Text(expense.date),
-        ),
-        trailing: ExcludeSemantics(
-          child: Text(expense.amount.toString()),
+      child: ExcludeSemantics(
+        child: ListTile(
+          leading: ExpenseIndicator(expenseType: expense.type),
+          title: Text(expense.description, textScaleFactor: 1.5),
+          subtitle: Text(expense.date),
+          trailing: Text(expense.amount.toString()),
         ),
       ),
     );
