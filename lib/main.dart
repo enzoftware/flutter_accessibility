@@ -13,6 +13,9 @@ class FlutterExpenseTrackerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FlutterExpenseTrackerApp',
+      // This will force Flutter to generate
+      //  an overlay to visualize the Semantics tree.
+      showSemanticsDebugger: true,
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,

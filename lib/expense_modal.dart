@@ -54,9 +54,11 @@ class ExpenseModal extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Center(
-                  child: Text(
-                    'Add an expense',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  child: ExcludeSemantics(
+                    child: Text(
+                      'Add an expense',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
@@ -97,23 +99,27 @@ class ExpenseModal extends StatelessWidget {
               const SizedBox(height: 8),
               const SizedBox(height: 16),
               Center(
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Save'),
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      final amountText = amountController.text.trim();
-                      final dateText = dateController.text.trim();
-                      final descriptionText = descriptionController.text.trim();
-                      final expense = Expense(
-                        amount: double.tryParse(amountText) ?? 0.0,
-                        date: dateText,
-                        description: descriptionText,
-                        type: _expenseType ?? ExpenseType.increase,
-                      );
-                      onButtonPressed(expense);
-                    }
-                  },
+                child: Semantics(
+                  label: 'Save expense button',
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.save),
+                    label: const Text('Save'),
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        final amountText = amountController.text.trim();
+                        final dateText = dateController.text.trim();
+                        final descriptionText =
+                            descriptionController.text.trim();
+                        final expense = Expense(
+                          amount: double.tryParse(amountText) ?? 0.0,
+                          date: dateText,
+                          description: descriptionText,
+                          type: _expenseType ?? ExpenseType.increase,
+                        );
+                        onButtonPressed(expense);
+                      }
+                    },
+                  ),
                 ),
               )
             ],
@@ -138,15 +144,18 @@ class ExpenseTextFormField extends StatelessWidget {
   final Function(String) validator;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      keyboardType: inputType,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
+    return Semantics(
+      label: 'Textfield for $label',
+      child: TextFormField(
+        controller: controller,
+        validator: validator,
+        keyboardType: inputType,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
           ),
         ),
       ),
@@ -170,29 +179,39 @@ class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
     return Row(
       children: <Widget>[
         Expanded(
-          child: RadioListTile<ExpenseType>(
-            title: const Text('Increase'),
-            value: ExpenseType.increase,
-            groupValue: _type,
-            onChanged: (value) {
-              setState(() {
-                _type = value;
-                widget.callback(value);
-              });
-            },
+          child: MergeSemantics(
+            child: RadioListTile<ExpenseType>(
+              title: const Text(
+                'Increase',
+                semanticsLabel: 'Expense type increase',
+              ),
+              value: ExpenseType.increase,
+              groupValue: _type,
+              onChanged: (value) {
+                setState(() {
+                  _type = value;
+                  widget.callback(value);
+                });
+              },
+            ),
           ),
         ),
         Expanded(
-          child: RadioListTile<ExpenseType>(
-            title: const Text('Withdraw'),
-            value: ExpenseType.whitdrawal,
-            groupValue: _type,
-            onChanged: (value) {
-              setState(() {
-                _type = value;
-                widget.callback(value);
-              });
-            },
+          child: MergeSemantics(
+            child: RadioListTile<ExpenseType>(
+              title: const Text(
+                'Withdrawal',
+                semanticsLabel: 'Expense type withdrawal',
+              ),
+              value: ExpenseType.whitdrawal,
+              groupValue: _type,
+              onChanged: (value) {
+                setState(() {
+                  _type = value;
+                  widget.callback(value);
+                });
+              },
+            ),
           ),
         ),
       ],

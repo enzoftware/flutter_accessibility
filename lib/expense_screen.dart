@@ -15,19 +15,26 @@ class ExpenseScreen extends StatelessWidget {
         child: Column(
           children: [
             ExpenseAmount(amount: bloc.expenseTotalAmount),
-            Expanded(child: ExpenseListBody(expenses: bloc.expenses))
+            Expanded(
+              child: Semantics(
+                label: 'List of expenses',
+                child: ExpenseListBody(expenses: bloc.expenses),
+              ),
+            )
           ],
         ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
-          child: const Icon(Icons.add),
+          child: const Icon(
+            Icons.add,
+            semanticLabel: 'Add icon',
+          ),
+          tooltip: 'Add new expense',
           onPressed: () => ExpenseModal.show(
             context,
-            onButtonPressed: (expense) {
-              bloc.addExpense(expense);
-            },
+            onButtonPressed: (expense) => bloc.addExpense(expense),
           ),
         ),
       ),
@@ -45,11 +52,18 @@ class ExpenseAmount extends StatelessWidget {
         padding: const EdgeInsets.only(top: 96.0, bottom: 64),
         child: Column(
           children: [
-            const Text(
-              'This month',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            const ExcludeSemantics(
+              child: Text(
+                'This month',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
             ),
-            Text(amount.toString(), style: const TextStyle(fontSize: 48)),
+            Text(
+              amount.toString(),
+              semanticsLabel:
+                  'The expense for this month is ${amount.toString()} dollars',
+              style: const TextStyle(fontSize: 48),
+            ),
           ],
         ),
       ),
@@ -63,9 +77,12 @@ class ExpenseListBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: expenses.length,
-      itemBuilder: (_, index) => ExpenseItem(expense: expenses[index]),
+    return Semantics(
+      label: 'List of expenses',
+      child: ListView.builder(
+        itemCount: expenses.length,
+        itemBuilder: (_, index) => ExpenseItem(expense: expenses[index]),
+      ),
     );
   }
 }

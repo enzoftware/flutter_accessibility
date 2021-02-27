@@ -9,10 +9,22 @@ class ExpenseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ExpenseIndicator(expenseType: expense.type),
-      title: Text(expense.description),
-      subtitle: Text(expense.date),
-      trailing: Text(expense.amount.toString()),
+      leading: ExcludeSemantics(
+        child: ExpenseIndicator(expenseType: expense.type),
+      ),
+      title: Text(
+        expense.description,
+        textScaleFactor: 1.5,
+        semanticsLabel: 'Expense description',
+      ),
+      subtitle: Text(
+        expense.date,
+        semanticsLabel: 'Expense date',
+      ),
+      trailing: Text(
+        expense.amount.toString(),
+        semanticsLabel: 'Expense amount',
+      ),
     );
   }
 }
