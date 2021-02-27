@@ -177,6 +177,7 @@ class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded(
           child: MergeSemantics(
@@ -184,6 +185,7 @@ class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
               title: const Text(
                 'Increase',
                 semanticsLabel: 'Expense type increase',
+                style: TextStyle(fontSize: 14),
               ),
               value: ExpenseType.increase,
               groupValue: _type,
@@ -202,6 +204,7 @@ class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
               title: const Text(
                 'Withdrawal',
                 semanticsLabel: 'Expense type withdrawal',
+                style: TextStyle(fontSize: 14),
               ),
               value: ExpenseType.whitdrawal,
               groupValue: _type,
