@@ -4,6 +4,7 @@ enum ExpenseType { whitdrawal, increase }
 
 extension XExpenseType on ExpenseType {
   bool isWithdrawal() => this == ExpenseType.whitdrawal;
+  String value() => isWithdrawal() ? 'withdrawal' : 'increase';
 }
 
 class Expense {

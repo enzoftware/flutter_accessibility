@@ -77,12 +77,9 @@ class ExpenseListBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: 'List of expenses',
-      child: ListView.builder(
-        itemCount: expenses.length,
-        itemBuilder: (_, index) => ExpenseItem(expense: expenses[index]),
-      ),
+    return ListView.builder(
+      itemCount: expenses.length,
+      itemBuilder: (_, index) => ExpenseItem(expense: expenses[index]),
     );
   }
 }

@@ -8,22 +8,28 @@ class ExpenseItem extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: ExcludeSemantics(
-        child: ExpenseIndicator(expenseType: expense.type),
-      ),
-      title: Text(
-        expense.description,
-        textScaleFactor: 1.5,
-        semanticsLabel: 'Expense description',
-      ),
-      subtitle: Text(
-        expense.date,
-        semanticsLabel: 'Expense date',
-      ),
-      trailing: Text(
-        expense.amount.toString(),
-        semanticsLabel: 'Expense amount',
+    final expenseTypeValue = expense.type.value();
+    final expenseAmount = expense.amount;
+    final expenseDate = expense.date;
+
+    return Semantics(
+      label: 'Expense $expenseTypeValue of $expenseAmount on $expenseDate',
+      child: ListTile(
+        leading: ExcludeSemantics(
+          child: ExpenseIndicator(expenseType: expense.type),
+        ),
+        title: ExcludeSemantics(
+          child: Text(
+            expense.description,
+            textScaleFactor: 1.5,
+          ),
+        ),
+        subtitle: ExcludeSemantics(
+          child: Text(expense.date),
+        ),
+        trailing: ExcludeSemantics(
+          child: Text(expense.amount.toString()),
+        ),
       ),
     );
   }
@@ -36,7 +42,7 @@ class ExpenseIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final indicatorColor =
-        expenseType.isWithdrawal() ? Colors.red : Colors.green;
+        expenseType.isWithdrawal() ? Colors.red : Colors.blue;
     return Container(
       height: 20.0,
       width: 20.0,
