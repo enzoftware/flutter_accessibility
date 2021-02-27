@@ -14,7 +14,7 @@ void main() {
     amount: 100,
     date: '2020-12-12',
     description: 'Test',
-    type: ExpenseType.increase,
+    type: ExpenseType.whitdrawal,
   );
   setUp(() {
     bloc = ExpenseBloc()..calculateExpenseAmount();
@@ -35,7 +35,7 @@ void main() {
     bloc.addExpense(withdrawalExpense);
     bloc.calculateExpenseAmount();
     expect(bloc.expenseTotalAmount, isNotNull);
-    expect(bloc.expenseTotalAmount, amountExpenses + withdrawalExpense.amount);
+    expect(bloc.expenseTotalAmount, amountExpenses - withdrawalExpense.amount);
   });
 
   test('On add expense of type increase the amount updates success', () {
