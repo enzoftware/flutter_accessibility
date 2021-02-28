@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/data/expense_data.dart';
 import 'package:flutter_expense_tracker/domain/expense.dart';
 
-class ExpenseBloc extends ChangeNotifier {
+class ExpenseProvider extends ChangeNotifier {
   List<Expense> _expenses;
   List<Expense> get expenses => _expenses;
 
@@ -11,7 +11,7 @@ class ExpenseBloc extends ChangeNotifier {
 
   final EMPTY_TOTAL_AMOUNT = 0.0;
 
-  ExpenseBloc() {
+  ExpenseProvider() {
     _expenses = testExpensesData;
   }
 

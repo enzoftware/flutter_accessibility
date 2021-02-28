@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/domain/expense.dart';
-import 'package:flutter_expense_tracker/expense_bloc.dart';
+import 'package:flutter_expense_tracker/expense_provider.dart';
 import 'package:flutter_expense_tracker/expense_item.dart';
 import 'package:flutter_expense_tracker/expense_modal.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +9,7 @@ class ExpenseScreen extends StatelessWidget {
   const ExpenseScreen({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ExpenseBloc>()..calculateExpenseAmount();
+    final bloc = context.watch<ExpenseProvider>()..calculateExpenseAmount();
     return Scaffold(
       body: SafeArea(
         child: Column(
