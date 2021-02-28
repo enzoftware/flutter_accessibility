@@ -9,13 +9,13 @@ class ExpenseScreen extends StatelessWidget {
   const ExpenseScreen({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ExpenseProvider>()..calculateExpenseAmount();
+    final provider = context.watch<ExpenseProvider>()..calculateExpenseAmount();
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            ExpenseAmount(amount: bloc.expenseTotalAmount),
-            Expanded(child: ExpenseListBody(expenses: bloc.expenses))
+            ExpenseAmount(amount: provider.expenseTotalAmount),
+            Expanded(child: ExpenseListBody(expenses: provider.expenses))
           ],
         ),
       ),
@@ -26,7 +26,7 @@ class ExpenseScreen extends StatelessWidget {
           tooltip: 'Add new expense',
           onPressed: () => ExpenseModal.show(
             context,
-            onButtonPressed: (expense) => bloc.addExpense(expense),
+            onButtonPressed: (expense) => provider.addExpense(expense),
           ),
         ),
       ),
