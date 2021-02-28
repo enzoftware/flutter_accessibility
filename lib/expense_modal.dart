@@ -99,27 +99,23 @@ class ExpenseModal extends StatelessWidget {
               const SizedBox(height: 8),
               const SizedBox(height: 16),
               Center(
-                child: Semantics(
-                  label: 'Save expense button',
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.save),
-                    label: const Text('Save expense'),
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        final amountText = amountController.text.trim();
-                        final dateText = dateController.text.trim();
-                        final descriptionText =
-                            descriptionController.text.trim();
-                        final expense = Expense(
-                          amount: double.tryParse(amountText) ?? 0.0,
-                          date: dateText,
-                          description: descriptionText,
-                          type: _expenseType ?? ExpenseType.increase,
-                        );
-                        onButtonPressed(expense);
-                      }
-                    },
-                  ),
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.save),
+                  label: const Text('Save expense'),
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      final amountText = amountController.text.trim();
+                      final dateText = dateController.text.trim();
+                      final descriptionText = descriptionController.text.trim();
+                      final expense = Expense(
+                        amount: double.tryParse(amountText) ?? 0.0,
+                        date: dateText,
+                        description: descriptionText,
+                        type: _expenseType ?? ExpenseType.increase,
+                      );
+                      onButtonPressed(expense);
+                    }
+                  },
                 ),
               )
             ],
