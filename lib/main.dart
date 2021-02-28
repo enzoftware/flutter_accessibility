@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/expense_bloc.dart';
+import 'package:flutter_expense_tracker/expense_provider.dart';
 import 'package:flutter_expense_tracker/expense_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class FlutterExpenseTrackerApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: ChangeNotifierProvider(
-        create: (_) => ExpenseBloc(),
+        create: (_) => ExpenseProvider(),
         builder: (_, __) => const ExpenseScreen(),
       ),
     );
