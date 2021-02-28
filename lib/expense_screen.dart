@@ -15,12 +15,7 @@ class ExpenseScreen extends StatelessWidget {
         child: Column(
           children: [
             ExpenseAmount(amount: bloc.expenseTotalAmount),
-            Expanded(
-              child: Semantics(
-                label: 'List of expenses',
-                child: ExpenseListBody(expenses: bloc.expenses),
-              ),
-            )
+            Expanded(child: ExpenseListBody(expenses: bloc.expenses))
           ],
         ),
       ),
