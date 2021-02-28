@@ -22,10 +22,7 @@ class ExpenseScreen extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
-          child: const Icon(
-            Icons.add,
-            semanticLabel: 'Add icon',
-          ),
+          child: const Icon(Icons.add),
           tooltip: 'Add new expense',
           onPressed: () => ExpenseModal.show(
             context,

@@ -103,7 +103,7 @@ class ExpenseModal extends StatelessWidget {
                   label: 'Save expense button',
                   child: ElevatedButton.icon(
                     icon: const Icon(Icons.save),
-                    label: const Text('Save'),
+                    label: const Text('Save expense'),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         final amountText = amountController.text.trim();
@@ -144,18 +144,15 @@ class ExpenseTextFormField extends StatelessWidget {
   final Function(String) validator;
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: 'Textfield for $label',
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        keyboardType: inputType,
-        decoration: InputDecoration(
-          labelText: label,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      keyboardType: inputType,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.0),
           ),
         ),
       ),
