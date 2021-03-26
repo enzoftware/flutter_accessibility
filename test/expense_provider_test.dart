@@ -19,30 +19,30 @@ void main() {
   setUp(() {
     provider = TransactionProvider()..calculateBalanceAmount();
   });
-  test('ExpenseBloc initialize with 3 expenses', () {
+  test('Transaction provider initialize with 3 expenses', () {
     expect(provider.transactions, isNotNull);
     expect(provider.transactions.length, 3);
   });
 
-  test('Add new expense to list success', () {
+  test('Add new transaction to list success', () {
     provider.addTransaction(incomeTransaction);
     expect(provider.transactions, isNotNull);
     expect(provider.transactions.length, 4);
   });
 
-  test('On add expense of type withdrawal the amount updates success', () {
-    final amountExpenses = provider.balanceAmount;
+  test('On add transaction of type expense the amount updates success', () {
+    final balance = provider.balanceAmount;
     provider.addTransaction(expenseTransaction);
     provider.calculateBalanceAmount();
     expect(provider.balanceAmount, isNotNull);
-    expect(provider.balanceAmount, amountExpenses - expenseTransaction.amount);
+    expect(provider.balanceAmount, balance - expenseTransaction.amount);
   });
 
-  test('On add expense of type increase the amount updates success', () {
-    final amountExpenses = provider.balanceAmount;
+  test('On add transaction of type income the amount updates success', () {
+    final balance = provider.balanceAmount;
     provider.addTransaction(incomeTransaction);
     provider.calculateBalanceAmount();
     expect(provider.balanceAmount, isNotNull);
-    expect(provider.balanceAmount, amountExpenses + incomeTransaction.amount);
+    expect(provider.balanceAmount, balance + incomeTransaction.amount);
   });
 }

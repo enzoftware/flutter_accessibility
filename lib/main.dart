@@ -4,11 +4,11 @@ import 'package:flutter_transaction_tracker/transaction_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const FlutterExpenseTrackerApp());
+  runApp(const TransactionTrackerApp());
 }
 
-class FlutterExpenseTrackerApp extends StatelessWidget {
-  const FlutterExpenseTrackerApp({Key key}) : super(key: key);
+class TransactionTrackerApp extends StatelessWidget {
+  const TransactionTrackerApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +19,7 @@ class FlutterExpenseTrackerApp extends StatelessWidget {
       ),
       home: ChangeNotifierProvider(
         create: (_) => TransactionProvider(),
-        builder: (_, __) => const ExpenseScreen(),
+        builder: (_, __) => const TransactionScreen(),
       ),
     );
   }
