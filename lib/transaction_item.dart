@@ -8,11 +8,19 @@ class TransactionItem extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: TransactionIndicator(transactionType: transaction.type),
-      title: Text(transaction.description),
-      subtitle: Text(transaction.date),
-      trailing: Text(transaction.amount.toString()),
+    final type = transaction.type.value();
+    final amount = transaction.amount;
+    final date = transaction.date;
+    return Semantics(
+      label: 'Transaction $type of $amount on $date',
+      child: ExcludeSemantics(
+        child: ListTile(
+          leading: TransactionIndicator(transactionType: transaction.type),
+          title: Text(transaction.description),
+          subtitle: Text(transaction.date),
+          trailing: Text(transaction.amount.toString()),
+        ),
+      ),
     );
   }
 }
