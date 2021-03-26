@@ -24,8 +24,8 @@ class TransactionModal extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TransactionModal(
-            onButtonPressed: (expense) {
-              onButtonPressed?.call(expense);
+            onButtonPressed: (transaction) {
+              onButtonPressed?.call(transaction);
               Navigator.pop(context);
             },
           ),
@@ -105,13 +105,13 @@ class TransactionModal extends StatelessWidget {
                       final amountText = amountController.text.trim();
                       final dateText = dateController.text.trim();
                       final descriptionText = descriptionController.text.trim();
-                      final expense = Transaction(
+                      final transaction = Transaction(
                         amount: double.tryParse(amountText) ?? 0.0,
                         date: dateText,
                         description: descriptionText,
                         type: _transactionType ?? TransactionType.income,
                       );
-                      onButtonPressed(expense);
+                      onButtonPressed(transaction);
                     }
                   },
                 ),
