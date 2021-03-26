@@ -5,7 +5,7 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('bySemanticsLabel test', (WidgetTester tester) async {
-    await tester.pumpWidget(const FlutterExpenseTrackerApp());
+    await tester.pumpWidget(const TransactionTrackerApp());
     await tester.pumpAndSettle();
     expect(find.bySemanticsLabel(RegExp('Expense')), findsNWidgets(3));
   });
