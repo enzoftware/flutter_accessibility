@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/domain/expense.dart';
-import 'package:flutter_expense_tracker/utils.dart';
+import 'package:flutter_transaction_tracker/domain/transaction.dart';
+import 'package:flutter_transaction_tracker/utils.dart';
 
-typedef ExpenseVoidCallback = void Function(Expense expense);
-typedef ExpenseTypeCallback = void Function(ExpenseType type);
+typedef TransactionVoidCallback = void Function(Transaction transaction);
+typedef TransactionTypeCallback = void Function(TransactionType type);
 
-class ExpenseModal extends StatelessWidget {
-  final ExpenseVoidCallback onButtonPressed;
+class TransactionModal extends StatelessWidget {
+  final TransactionVoidCallback onButtonPressed;
 
-  const ExpenseModal({Key key, this.onButtonPressed}) : super(key: key);
+  const TransactionModal({Key key, this.onButtonPressed}) : super(key: key);
 
   static Future<void> show(
     BuildContext context, {
-    ExpenseVoidCallback onButtonPressed,
+    TransactionVoidCallback onButtonPressed,
     bool barrierDismissible = true,
   }) {
     return showDialog(
@@ -23,7 +23,7 @@ class ExpenseModal extends StatelessWidget {
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ExpenseModal(
+          child: TransactionModal(
             onButtonPressed: (expense) {
               onButtonPressed?.call(expense);
               Navigator.pop(context);
@@ -40,7 +40,7 @@ class ExpenseModal extends StatelessWidget {
     final descriptionController = TextEditingController();
     final amountController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
-    var _expenseType;
+    var _transactionType;
 
     return Material(
       child: Padding(
@@ -54,29 +54,27 @@ class ExpenseModal extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Center(
-                  child: ExcludeSemantics(
-                    child: Text(
-                      'Add an expense',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                  child: Text(
+                    'Add an entry',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
               const SizedBox(height: 8),
-              ExpenseTypeRadioForm(
+              TransactionTypeRadioForm(
                 callback: (value) {
-                  _expenseType = value;
+                  _transactionType = value;
                 },
               ),
               const SizedBox(height: 8),
-              ExpenseTextFormField(
+              TransactionTextFormField(
                 label: 'Description',
                 controller: descriptionController,
                 validator: (value) =>
                     value.isNotEmpty ? null : 'This field cant be empty',
               ),
               const SizedBox(height: 8),
-              ExpenseTextFormField(
+              TransactionTextFormField(
                 label: 'Amount',
                 inputType: TextInputType.number,
                 controller: amountController,
@@ -89,7 +87,7 @@ class ExpenseModal extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 8),
-              ExpenseTextFormField(
+              TransactionTextFormField(
                 label: 'Date',
                 inputType: TextInputType.datetime,
                 controller: dateController,
@@ -101,17 +99,17 @@ class ExpenseModal extends StatelessWidget {
               Center(
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.save),
-                  label: const Text('Save expense'),
+                  label: const Text('Save entry'),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       final amountText = amountController.text.trim();
                       final dateText = dateController.text.trim();
                       final descriptionText = descriptionController.text.trim();
-                      final expense = Expense(
+                      final expense = Transaction(
                         amount: double.tryParse(amountText) ?? 0.0,
                         date: dateText,
                         description: descriptionText,
-                        type: _expenseType ?? ExpenseType.increase,
+                        type: _transactionType ?? TransactionType.income,
                       );
                       onButtonPressed(expense);
                     }
@@ -126,8 +124,8 @@ class ExpenseModal extends StatelessWidget {
   }
 }
 
-class ExpenseTextFormField extends StatelessWidget {
-  const ExpenseTextFormField({
+class TransactionTextFormField extends StatelessWidget {
+  const TransactionTextFormField({
     Key key,
     @required this.label,
     this.controller,
@@ -156,16 +154,17 @@ class ExpenseTextFormField extends StatelessWidget {
   }
 }
 
-class ExpenseTypeRadioForm extends StatefulWidget {
-  const ExpenseTypeRadioForm({Key key, this.callback}) : super(key: key);
-  final ExpenseTypeCallback callback;
+class TransactionTypeRadioForm extends StatefulWidget {
+  const TransactionTypeRadioForm({Key key, this.callback}) : super(key: key);
+  final TransactionTypeCallback callback;
 
   @override
-  _ExpenseTypeRadioFormState createState() => _ExpenseTypeRadioFormState();
+  _TransactionTypeRadioFormState createState() =>
+      _TransactionTypeRadioFormState();
 }
 
-class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
-  ExpenseType _type = ExpenseType.increase;
+class _TransactionTypeRadioFormState extends State<TransactionTypeRadioForm> {
+  TransactionType _type = TransactionType.income;
 
   @override
   Widget build(BuildContext context) {
@@ -174,13 +173,13 @@ class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
       children: <Widget>[
         Expanded(
           child: MergeSemantics(
-            child: RadioListTile<ExpenseType>(
+            child: RadioListTile<TransactionType>(
               title: const Text(
-                'Increase',
-                semanticsLabel: 'Expense type increase',
+                'Income',
+                semanticsLabel: 'Transaction type income',
                 style: TextStyle(fontSize: 14),
               ),
-              value: ExpenseType.increase,
+              value: TransactionType.income,
               groupValue: _type,
               onChanged: (value) {
                 setState(() {
@@ -193,13 +192,13 @@ class _ExpenseTypeRadioFormState extends State<ExpenseTypeRadioForm> {
         ),
         Expanded(
           child: MergeSemantics(
-            child: RadioListTile<ExpenseType>(
+            child: RadioListTile<TransactionType>(
               title: const Text(
-                'Withdrawal',
-                semanticsLabel: 'Expense type withdrawal',
+                'Expense',
+                semanticsLabel: 'Transaction type expense',
                 style: TextStyle(fontSize: 14),
               ),
-              value: ExpenseType.whitdrawal,
+              value: TransactionType.expense,
               groupValue: _type,
               onChanged: (value) {
                 setState(() {
