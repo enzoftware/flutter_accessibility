@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/domain/expense.dart';
-import 'package:flutter_expense_tracker/expense_provider.dart';
-import 'package:flutter_expense_tracker/expense_item.dart';
-import 'package:flutter_expense_tracker/expense_modal.dart';
+import 'package:flutter_transaction_tracker/domain/transaction.dart';
+import 'package:flutter_transaction_tracker/transaction_provider.dart';
+import 'package:flutter_transaction_tracker/transaction_item.dart';
+import 'package:flutter_transaction_tracker/transaction_modal.dart';
 import 'package:provider/provider.dart';
 
 class ExpenseScreen extends StatelessWidget {
   const ExpenseScreen({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<ExpenseProvider>()..calculateExpenseAmount();
+    final provider = context.watch<TransactionProvider>()
+      ..calculateExpenseAmount();
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            ExpenseAmount(amount: provider.expenseTotalAmount),
-            Expanded(child: ExpenseListBody(expenses: provider.expenses))
+            BalanceAmount(amount: provider.balanceAmount),
+            Expanded(
+                child: TransactionListBody(transactions: provider.transactions))
           ],
         ),
       ),
@@ -23,7 +25,7 @@ class ExpenseScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
           child: const Icon(Icons.add),
-          onPressed: () => ExpenseModal.show(
+          onPressed: () => TransactionModal.show(
             context,
             onButtonPressed: (expense) {
               provider.addExpense(expense);
@@ -35,9 +37,9 @@ class ExpenseScreen extends StatelessWidget {
   }
 }
 
-class ExpenseAmount extends StatelessWidget {
+class BalanceAmount extends StatelessWidget {
   final double amount;
-  const ExpenseAmount({Key key, this.amount}) : super(key: key);
+  const BalanceAmount({Key key, this.amount}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -57,15 +59,16 @@ class ExpenseAmount extends StatelessWidget {
   }
 }
 
-class ExpenseListBody extends StatelessWidget {
-  final List<Expense> expenses;
-  const ExpenseListBody({Key key, this.expenses}) : super(key: key);
+class TransactionListBody extends StatelessWidget {
+  final List<Transaction> transactions;
+  const TransactionListBody({Key key, this.transactions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: expenses.length,
-      itemBuilder: (_, index) => ExpenseItem(expense: expenses[index]),
+      itemCount: transactions.length,
+      itemBuilder: (_, index) =>
+          TransactionItem(transaction: transactions[index]),
     );
   }
 }

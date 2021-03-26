@@ -1,50 +1,48 @@
-import 'package:flutter_expense_tracker/domain/expense.dart';
-import 'package:flutter_expense_tracker/expense_provider.dart';
+import 'package:flutter_transaction_tracker/domain/transaction.dart';
+import 'package:flutter_transaction_tracker/transaction_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  ExpenseProvider provider;
-  final increaseExpense = Expense(
+  TransactionProvider provider;
+  final incomeTransaction = Transaction(
     amount: 100.0,
     description: 'Cat food',
     date: '2021-02-04',
-    type: ExpenseType.increase,
+    type: TransactionType.income,
   );
-  final withdrawalExpense = Expense(
+  final expenseTransaction = Transaction(
     amount: 100,
     date: '2020-12-12',
     description: 'Test',
-    type: ExpenseType.whitdrawal,
+    type: TransactionType.expense,
   );
   setUp(() {
-    provider = ExpenseProvider()..calculateExpenseAmount();
+    provider = TransactionProvider()..calculateExpenseAmount();
   });
   test('ExpenseBloc initialize with 3 expenses', () {
-    expect(provider.expenses, isNotNull);
-    expect(provider.expenses.length, 3);
+    expect(provider.transactions, isNotNull);
+    expect(provider.transactions.length, 3);
   });
 
   test('Add new expense to list success', () {
-    provider.addExpense(increaseExpense);
-    expect(provider.expenses, isNotNull);
-    expect(provider.expenses.length, 4);
+    provider.addExpense(incomeTransaction);
+    expect(provider.transactions, isNotNull);
+    expect(provider.transactions.length, 4);
   });
 
   test('On add expense of type withdrawal the amount updates success', () {
-    final amountExpenses = provider.expenseTotalAmount;
-    provider.addExpense(withdrawalExpense);
+    final amountExpenses = provider.balanceAmount;
+    provider.addExpense(expenseTransaction);
     provider.calculateExpenseAmount();
-    expect(provider.expenseTotalAmount, isNotNull);
-    expect(
-        provider.expenseTotalAmount, amountExpenses - withdrawalExpense.amount);
+    expect(provider.balanceAmount, isNotNull);
+    expect(provider.balanceAmount, amountExpenses - expenseTransaction.amount);
   });
 
   test('On add expense of type increase the amount updates success', () {
-    final amountExpenses = provider.expenseTotalAmount;
-    provider.addExpense(increaseExpense);
+    final amountExpenses = provider.balanceAmount;
+    provider.addExpense(incomeTransaction);
     provider.calculateExpenseAmount();
-    expect(provider.expenseTotalAmount, isNotNull);
-    expect(
-        provider.expenseTotalAmount, amountExpenses + increaseExpense.amount);
+    expect(provider.balanceAmount, isNotNull);
+    expect(provider.balanceAmount, amountExpenses + incomeTransaction.amount);
   });
 }

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-enum ExpenseType { whitdrawal, increase }
+enum TransactionType { expense, income }
 
-extension XExpenseType on ExpenseType {
-  bool isWithdrawal() => this == ExpenseType.whitdrawal;
-  String value() => isWithdrawal() ? 'withdrawal' : 'increase';
+extension XExpenseType on TransactionType {
+  bool isExpense() => this == TransactionType.expense;
+  String value() => isExpense() ? 'expense' : 'income';
 }
 
-class Expense {
+class Transaction {
   final String description;
   final String date;
   final double amount;
-  final ExpenseType type;
+  final TransactionType type;
 
-  Expense({
+  Transaction({
     @required this.description,
     @required this.date,
     @required this.amount,
