@@ -10,7 +10,7 @@ class ExpenseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<TransactionProvider>()
-      ..calculateExpenseAmount();
+      ..calculateBalanceAmount();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -28,8 +28,8 @@ class ExpenseScreen extends StatelessWidget {
           tooltip: 'Add new entry',
           onPressed: () => TransactionModal.show(
             context,
-            onButtonPressed: (expense) {
-              provider.addExpense(expense);
+            onButtonPressed: (transaction) {
+              provider.addTransaction(transaction);
             },
           ),
         ),

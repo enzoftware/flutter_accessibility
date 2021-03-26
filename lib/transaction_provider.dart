@@ -15,14 +15,14 @@ class TransactionProvider extends ChangeNotifier {
     _transactions = testTransactionsData;
   }
 
-  void calculateExpenseAmount() {
+  void calculateBalanceAmount() {
     _balanceAmount = _transactions.fold(
       EMPTY_TOTAL_AMOUNT,
       (sum, e) => sum += e.type.isExpense() ? e.amount * -1.0 : e.amount,
     );
   }
 
-  void addExpense(Transaction transaction) {
+  void addTransaction(Transaction transaction) {
     _transactions.add(transaction);
     notifyListeners();
   }
