@@ -7,6 +7,6 @@ void main() {
   testWidgets('bySemanticsLabel test', (WidgetTester tester) async {
     await tester.pumpWidget(const TransactionTrackerApp());
     await tester.pumpAndSettle();
-    expect(find.bySemanticsLabel(RegExp('Expense')), findsNWidgets(3));
+    expect(find.bySemanticsLabel(RegExp('Transaction')), findsNWidgets(3));
   });
 }
