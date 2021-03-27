@@ -172,41 +172,37 @@ class _TransactionTypeRadioFormState extends State<TransactionTypeRadioForm> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded(
-          child: MergeSemantics(
-            child: RadioListTile<TransactionType>(
-              title: const Text(
-                'Income',
-                semanticsLabel: 'Transaction type income',
-                style: TextStyle(fontSize: 14),
-              ),
-              value: TransactionType.income,
-              groupValue: _type,
-              onChanged: (value) {
-                setState(() {
-                  _type = value;
-                  widget.callback(value);
-                });
-              },
+          child: RadioListTile<TransactionType>(
+            title: const Text(
+              'Income',
+              semanticsLabel: 'Transaction type income',
+              style: TextStyle(fontSize: 14),
             ),
+            value: TransactionType.income,
+            groupValue: _type,
+            onChanged: (value) {
+              setState(() {
+                _type = value;
+                widget.callback(value);
+              });
+            },
           ),
         ),
         Expanded(
-          child: MergeSemantics(
-            child: RadioListTile<TransactionType>(
-              title: const Text(
-                'Expense',
-                semanticsLabel: 'Transaction type expense',
-                style: TextStyle(fontSize: 14),
-              ),
-              value: TransactionType.expense,
-              groupValue: _type,
-              onChanged: (value) {
-                setState(() {
-                  _type = value;
-                  widget.callback(value);
-                });
-              },
+          child: RadioListTile<TransactionType>(
+            title: const Text(
+              'Expense',
+              semanticsLabel: 'Transaction type expense',
+              style: TextStyle(fontSize: 14),
             ),
+            value: TransactionType.expense,
+            groupValue: _type,
+            onChanged: (value) {
+              setState(() {
+                _type = value;
+                widget.callback(value);
+              });
+            },
           ),
         ),
       ],

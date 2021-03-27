@@ -28,9 +28,8 @@ class TransactionScreen extends StatelessWidget {
           tooltip: 'Add new entry',
           onPressed: () => TransactionModal.show(
             context,
-            onButtonPressed: (transaction) {
-              provider.addTransaction(transaction);
-            },
+            onButtonPressed: (transaction) =>
+                provider.addTransaction(transaction),
           ),
         ),
       ),
@@ -56,8 +55,7 @@ class BalanceAmount extends StatelessWidget {
             ),
             Text(
               amount.toString(),
-              semanticsLabel:
-                  'The balance for this month is ${amount.toString()} dollars',
+              semanticsLabel: 'The balance for this month is ${amount} dollars',
               style: const TextStyle(fontSize: 48),
             ),
           ],

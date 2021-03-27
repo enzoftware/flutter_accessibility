@@ -32,7 +32,7 @@ class TransactionIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final indicatorColor =
-        transactionType.isExpense() ? Colors.red : Colors.green;
+        transactionType.isExpense() ? Colors.red : Colors.blue;
     return Container(
       height: 20.0,
       width: 20.0,
