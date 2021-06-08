@@ -8,11 +8,12 @@ void main() {
 }
 
 class TransactionTrackerApp extends StatelessWidget {
-  const TransactionTrackerApp({Key key}) : super(key: key);
+  const TransactionTrackerApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TransactionTrackerApp',
+      // TODO: Add showSemanticsDebugger
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -3,7 +3,7 @@ import 'package:flutter_transaction_tracker/domain/transaction.dart';
 final testTransactionsData = [
   Transaction(
     amount: 800.0,
-    description: 'Bet prize',
+    description: 'Gift',
     date: '12/12/2020',
     type: TransactionType.income,
   ),

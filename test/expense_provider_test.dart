@@ -1,24 +1,28 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_transaction_tracker/domain/transaction.dart';
 import 'package:flutter_transaction_tracker/transaction_provider.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  TransactionProvider provider;
+  late TransactionProvider provider;
+
   final incomeTransaction = Transaction(
     amount: 100.0,
     description: 'Cat food',
     date: '2021-02-04',
     type: TransactionType.income,
   );
+
   final expenseTransaction = Transaction(
     amount: 100,
     date: '2020-12-12',
     description: 'Test',
     type: TransactionType.expense,
   );
+
   setUp(() {
     provider = TransactionProvider()..calculateBalanceAmount();
   });
+
   test('Transaction provider initialize with 3 expenses', () {
     expect(provider.transactions, isNotNull);
     expect(provider.transactions.length, 3);

@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-
 enum TransactionType { expense, income }
 
 extension XExpenseType on TransactionType {
   bool isExpense() => this == TransactionType.expense;
+
   String value() => isExpense() ? 'expense' : 'income';
 }
 
@@ -14,12 +13,9 @@ class Transaction {
   final TransactionType type;
 
   Transaction({
-    @required this.description,
-    @required this.date,
-    @required this.amount,
-    @required this.type,
-  })  : assert(description != null),
-        assert(date != null),
-        assert(type != null),
-        assert(amount != null);
+    required this.description,
+    required this.date,
+    required this.amount,
+    required this.type,
+  });
 }

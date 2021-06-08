@@ -6,7 +6,7 @@ import 'package:flutter_transaction_tracker/transaction_modal.dart';
 import 'package:provider/provider.dart';
 
 class TransactionScreen extends StatelessWidget {
-  const TransactionScreen({Key key}) : super(key: key);
+  const TransactionScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<TransactionProvider>()
@@ -39,7 +39,7 @@ class TransactionScreen extends StatelessWidget {
 
 class BalanceAmount extends StatelessWidget {
   final double amount;
-  const BalanceAmount({Key key, this.amount}) : super(key: key);
+  const BalanceAmount({Key? key, required this.amount}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -61,7 +61,8 @@ class BalanceAmount extends StatelessWidget {
 
 class TransactionListBody extends StatelessWidget {
   final List<Transaction> transactions;
-  const TransactionListBody({Key key, this.transactions}) : super(key: key);
+  const TransactionListBody({Key? key, required this.transactions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
