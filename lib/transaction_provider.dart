@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_transaction_tracker/data/transaction_data.dart';
-import 'package:flutter_transaction_tracker/domain/transaction.dart';
+import 'data/transaction_data.dart';
+import 'domain/transaction.dart';
 
 class TransactionProvider extends ChangeNotifier {
-  List<Transaction> _transactions;
+  late List<Transaction> _transactions;
   List<Transaction> get transactions => _transactions;
 
-  double _balanceAmount;
+  late double _balanceAmount;
   double get balanceAmount => _balanceAmount;
 
   final EMPTY_TOTAL_AMOUNT = 0.0;

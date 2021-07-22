@@ -3,14 +3,14 @@ import 'package:flutter_transaction_tracker/transaction_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  TransactionProvider provider;
-  final incomeTransaction = Transaction(
+  late TransactionProvider provider;
+  const incomeTransaction = Transaction(
     amount: 100.0,
     description: 'Cat food',
     date: '2021-02-04',
     type: TransactionType.income,
   );
-  final expenseTransaction = Transaction(
+  const expenseTransaction = Transaction(
     amount: 100,
     date: '2020-12-12',
     description: 'Test',

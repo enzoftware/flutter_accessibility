@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_transaction_tracker/domain/transaction.dart';
+import 'domain/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
   final Transaction transaction;
-  const TransactionItem({Key key, @required this.transaction})
-      : assert(transaction != null),
-        super(key: key);
+  const TransactionItem({Key? key, required this.transaction})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final type = transaction.type.value();
@@ -13,13 +12,11 @@ class TransactionItem extends StatelessWidget {
     final date = transaction.date;
     return Semantics(
       label: 'Transaction $type of $amount on $date',
-      child: ExcludeSemantics(
-        child: ListTile(
-          leading: TransactionIndicator(transactionType: transaction.type),
-          title: Text(transaction.description),
-          subtitle: Text(transaction.date),
-          trailing: Text(transaction.amount.toString()),
-        ),
+      child: ListTile(
+        leading: TransactionIndicator(transactionType: transaction.type),
+        title: Text(transaction.description),
+        subtitle: Text(transaction.date),
+        trailing: Text(transaction.amount.toString()),
       ),
     );
   }
@@ -28,7 +25,8 @@ class TransactionItem extends StatelessWidget {
 class TransactionIndicator extends StatelessWidget {
   final TransactionType transactionType;
 
-  const TransactionIndicator({Key key, this.transactionType}) : super(key: key);
+  const TransactionIndicator({Key? key, required this.transactionType})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final indicatorColor =

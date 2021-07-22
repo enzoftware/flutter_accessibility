@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_transaction_tracker/domain/transaction.dart';
-import 'package:flutter_transaction_tracker/utils.dart';
+import 'domain/transaction.dart';
+import 'utils.dart';
 
 typedef TransactionVoidCallback = void Function(Transaction transaction);
-typedef TransactionTypeCallback = void Function(TransactionType type);
+typedef TransactionTypeCallback = void Function(TransactionType? type);
 
 class TransactionModal extends StatelessWidget {
   final TransactionVoidCallback onButtonPressed;
 
-  const TransactionModal({Key key, this.onButtonPressed}) : super(key: key);
+  const TransactionModal({Key? key, required this.onButtonPressed})
+      : super(key: key);
 
   static Future<void> show(
     BuildContext context, {
-    TransactionVoidCallback onButtonPressed,
+    required TransactionVoidCallback onButtonPressed,
     bool barrierDismissible = true,
   }) {
     return showDialog(
@@ -25,7 +26,7 @@ class TransactionModal extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TransactionModal(
             onButtonPressed: (transaction) {
-              onButtonPressed?.call(transaction);
+              onButtonPressed.call(transaction);
               Navigator.pop(context);
             },
           ),
@@ -71,7 +72,7 @@ class TransactionModal extends StatelessWidget {
                 label: 'Description',
                 controller: descriptionController,
                 validator: (value) =>
-                    value.isNotEmpty ? null : 'This field cant be empty',
+                    value!.isNotEmpty ? null : 'This field can\'t be empty',
               ),
               const SizedBox(height: 8),
               TransactionTextFormField(
@@ -79,10 +80,10 @@ class TransactionModal extends StatelessWidget {
                 inputType: TextInputType.number,
                 controller: amountController,
                 validator: (value) {
-                  if (value.isNotEmpty) {
+                  if (value!.isNotEmpty) {
                     return isNumeric(value) ? null : 'The value is not numeric';
                   } else {
-                    return 'This field cant be empty';
+                    return 'This field can\'t be empty';
                   }
                 },
               ),
@@ -92,7 +93,7 @@ class TransactionModal extends StatelessWidget {
                 inputType: TextInputType.datetime,
                 controller: dateController,
                 validator: (value) =>
-                    value.isNotEmpty ? null : 'This field cant be empty',
+                    value!.isNotEmpty ? null : 'This field can\'t be empty',
               ),
               const SizedBox(height: 8),
               const SizedBox(height: 16),
@@ -101,7 +102,7 @@ class TransactionModal extends StatelessWidget {
                   icon: const Icon(Icons.save),
                   label: const Text('Save entry'),
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       final amountText = amountController.text.trim();
                       final dateText = dateController.text.trim();
                       final descriptionText = descriptionController.text.trim();
@@ -126,16 +127,16 @@ class TransactionModal extends StatelessWidget {
 
 class TransactionTextFormField extends StatelessWidget {
   const TransactionTextFormField({
-    Key key,
-    @required this.label,
-    this.controller,
+    Key? key,
+    required this.label,
+    required this.controller,
     this.inputType = TextInputType.text,
-    this.validator,
+    required this.validator,
   }) : super(key: key);
   final String label;
   final TextEditingController controller;
   final TextInputType inputType;
-  final Function(String) validator;
+  final String? Function(String?) validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -155,7 +156,8 @@ class TransactionTextFormField extends StatelessWidget {
 }
 
 class TransactionTypeRadioForm extends StatefulWidget {
-  const TransactionTypeRadioForm({Key key, this.callback}) : super(key: key);
+  const TransactionTypeRadioForm({Key? key, required this.callback})
+      : super(key: key);
   final TransactionTypeCallback callback;
 
   @override
@@ -164,12 +166,11 @@ class TransactionTypeRadioForm extends StatefulWidget {
 }
 
 class _TransactionTypeRadioFormState extends State<TransactionTypeRadioForm> {
-  TransactionType _type = TransactionType.income;
+  TransactionType? _type = TransactionType.income;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Expanded(
           child: RadioListTile<TransactionType>(
