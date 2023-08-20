@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'domain/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
@@ -25,8 +26,11 @@ class TransactionItem extends StatelessWidget {
 class TransactionIndicator extends StatelessWidget {
   final TransactionType transactionType;
 
-  const TransactionIndicator({Key? key, required this.transactionType})
-      : super(key: key);
+  const TransactionIndicator({
+    Key? key,
+    required this.transactionType,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final indicatorColor =

@@ -1,4 +1,4 @@
-import '../domain/transaction.dart';
+import 'package:flutter_transaction_tracker/domain/transaction.dart';
 
 final testTransactionsData = [
   const Transaction(
