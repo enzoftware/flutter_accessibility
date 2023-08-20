@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'domain/transaction.dart';
 import 'transaction_item.dart';
 import 'transaction_modal.dart';
@@ -17,7 +18,10 @@ class TransactionScreen extends StatelessWidget {
           children: [
             BalanceAmount(amount: provider.balanceAmount),
             Expanded(
-                child: TransactionListBody(transactions: provider.transactions))
+              child: TransactionListBody(
+                transactions: provider.transactions,
+              ),
+            )
           ],
         ),
       ),
@@ -74,8 +78,9 @@ class TransactionListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: transactions.length,
-      itemBuilder: (_, index) =>
-          TransactionItem(transaction: transactions[index]),
+      itemBuilder: (_, index) => TransactionItem(
+        transaction: transactions[index],
+      ),
     );
   }
 }

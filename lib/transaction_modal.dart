@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'domain/transaction.dart';
-import 'utils.dart';
+import 'utils/utils.dart';
 
 typedef TransactionVoidCallback = void Function(Transaction transaction);
 typedef TransactionTypeCallback = void Function(TransactionType? type);
